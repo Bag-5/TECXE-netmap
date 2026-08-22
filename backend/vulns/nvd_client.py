@@ -71,7 +71,6 @@ class NVDClient:
         params: dict[str, str | int] = {
             "keywordSearch": query,
             "resultsPerPage": limit,
-            "cvssV3Severity": "",  # ignored when empty; kept simple
         }
         headers = {}
         if settings.NVD_API_KEY:

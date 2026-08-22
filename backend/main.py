@@ -176,7 +176,8 @@ async def start_scan_background(req: ScanRequest):
                 logger.exception("Background scan failed")
                 await manager.broadcast_json({"type": "scan_error", "error": str(exc)})
 
-    asyncio.create_task(_job())
+    task = asyncio.create_task(_job())
+    task.add_done_callback(lambda t: t.exception() if t.exception() else None)
     return {"status": "started", "cidr": cidr, "profile": req.profile}
 
 

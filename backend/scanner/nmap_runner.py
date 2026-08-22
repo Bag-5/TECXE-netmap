@@ -102,7 +102,8 @@ def parse_xml_to_hosts(xml_text: str) -> list[HostNode]:
         if addr_el is None:
             continue
         mac_el = xml_host.find('./address[@addrtype="mac"]')
-        hostname = xml_host.findtext("./hostnames/hostname/@name")
+        hostname_el = xml_host.find("./hostnames/hostname")
+        hostname = hostname_el.get("name") if hostname_el is not None else None
 
         os_info = _parse_os(xml_host)
         hosts.append(

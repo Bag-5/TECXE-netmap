@@ -143,8 +143,8 @@ async def load_latest_hosts(session: AsyncSession) -> list[HostNode]:
     for rec in result.scalars():
         hosts.append(
             HostNode(
-                ip=rec.ip,
-                mac=rec.mac,
+                ip=str(rec.ip),
+                mac=str(rec.mac) if rec.mac else None,
                 hostname=rec.hostname,
                 os_name=rec.os_name,
                 os_family=rec.os_family,
